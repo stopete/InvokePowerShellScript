@@ -15,7 +15,7 @@ namespace InvokePowerShellScript
             LoadPowerShellScripts(@"C:\DoNotDelete\InvokeCommandFiles\Scripts");
         }
 
-                
+
 
         private void InvokeScript(string strcomputers, string strscript)
         {
@@ -130,6 +130,21 @@ namespace InvokePowerShellScript
             {
                 MessageBox.Show("Exception: " + ex.Message);
             }
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+            Application.Exit();
+
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Form2 form2 = new Form2();
+            form2.Show();
+
         }
     }
 }
