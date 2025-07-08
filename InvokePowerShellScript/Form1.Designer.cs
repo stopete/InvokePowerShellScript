@@ -104,6 +104,7 @@
             // 
             // button2
             // 
+            button2.Enabled = false;
             button2.Image = Properties.Resources.icons8_powershell_48;
             button2.Location = new Point(77, 121);
             button2.Name = "button2";
@@ -114,6 +115,7 @@
             // 
             // button1
             // 
+            button1.Enabled = false;
             button1.Image = Properties.Resources.txt_file_3;
             button1.Location = new Point(77, 48);
             button1.Name = "button1";
@@ -175,22 +177,25 @@
             // 
             // button5
             // 
+            button5.Enabled = false;
             button5.Image = Properties.Resources.go;
             button5.Location = new Point(83, 218);
             button5.Name = "button5";
             button5.Size = new Size(94, 41);
             button5.TabIndex = 4;
             button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
             checkBox1.Location = new Point(772, 49);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(174, 24);
+            checkBox1.Size = new Size(178, 24);
             checkBox1.TabIndex = 8;
-            checkBox1.Text = "Opton to browse files";
+            checkBox1.Text = "Option to browse files";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // Form1
             // 

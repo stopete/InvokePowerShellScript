@@ -210,5 +210,23 @@ namespace InvokePowerShellScript
                 }
             }
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+            bool isChecked = checkBox1.Checked;
+
+            button1.Enabled = isChecked;
+            button2.Enabled = isChecked;
+            button5.Enabled = isChecked;
+            button3.Enabled = !isChecked;
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string scriptPath = Path.Combine(Application.StartupPath, "InvokeScript.ps1");
+            RunPowerShellScript(scriptPath);
+        }
     }
 }
