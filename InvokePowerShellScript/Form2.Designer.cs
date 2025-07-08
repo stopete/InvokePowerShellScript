@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             comboBox1 = new ComboBox();
             groupBox1 = new GroupBox();
             button1 = new Button();
+            button2 = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(47, 92);
+            comboBox1.Location = new Point(70, 92);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(429, 28);
             comboBox1.TabIndex = 0;
@@ -45,31 +47,43 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(comboBox1);
-            groupBox1.Location = new Point(93, 87);
+            groupBox1.Location = new Point(71, 59);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(607, 274);
+            groupBox1.Size = new Size(606, 260);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Profiles";
             // 
             // button1
             // 
-            button1.Location = new Point(378, 148);
+            button1.Image = Properties.Resources.go;
+            button1.Location = new Point(401, 148);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(94, 44);
             button1.TabIndex = 1;
-            button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Image = Properties.Resources.exit_16560516_12;
+            button2.Location = new Point(295, 149);
+            button2.Name = "button2";
+            button2.Size = new Size(94, 42);
+            button2.TabIndex = 2;
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(770, 402);
             Controls.Add(groupBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form2";
             Text = "Credential Manager";
             Load += Form2_Load;
@@ -82,5 +96,6 @@
         private ComboBox comboBox1;
         private GroupBox groupBox1;
         private Button button1;
+        private Button button2;
     }
 }

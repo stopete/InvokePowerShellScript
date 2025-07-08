@@ -2,6 +2,7 @@
 
 
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace InvokePowerShellScript
 {
@@ -10,9 +11,15 @@ namespace InvokePowerShellScript
         public Form1()
         {
             InitializeComponent();
-            //CheckAndInstallModules();
-            LoadFilesIntoComboBox(@"C:\DoNotDelete\InvokeCommandFiles\Computers");
-            LoadPowerShellScripts(@"C:\DoNotDelete\InvokeCommandFiles\Scripts");
+
+            string basePath = Application.StartupPath;
+
+            string computersPath = Path.Combine(basePath, "InvokeCommandFiles", "Computers");
+            string scriptsPath = Path.Combine(basePath, "InvokeCommandFiles", "Scripts");
+
+            LoadFilesIntoComboBox(computersPath);
+            LoadPowerShellScripts(scriptsPath);
+
         }
 
 
@@ -60,76 +67,66 @@ namespace InvokePowerShellScript
             }
         }
 
+        public void RunPowerShellScript(string scriptPath)
+        {
+            try
+            {
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoExit -ExecutionPolicy Bypass -File \"{scriptPath}\"",
+                    UseShellExecute = true, // Important: allows console window to show
+                    CreateNoWindow = false  // Show the PowerShell window
+                };
+
+
+                using var _ = System.Diagnostics.Process.Start(psi);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error launching PowerShell:\n" + ex.Message);
+            }
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem == null || comboBox2.SelectedItem == null)
+            string computersPath = comboBox1.SelectedItem?.ToString();
+            string scriptFilePath = comboBox2.SelectedItem?.ToString();
+
+            string scriptPath = Path.Combine(Application.StartupPath, "InvokeScript.ps1");
+
+            if (string.IsNullOrWhiteSpace(computersPath) || string.IsNullOrWhiteSpace(scriptFilePath))
             {
-                MessageBox.Show("Please select an item from both ComboBox1 and ComboBox2.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select both a computer list and a script file.");
                 return;
             }
 
-            string? selectedItem1 = comboBox1.SelectedItem?.ToString();
-            string? selectedItem2 = comboBox2.SelectedItem?.ToString();
+            string psScriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InvokeScript.ps1");
 
-            if (selectedItem1 != null && selectedItem2 != null)
+            if (!File.Exists(psScriptPath))
             {
-                DialogResult result = MessageBox.Show(
-                    $"You selected:\nComboBox1: {selectedItem1}\nComboBox2: {selectedItem2}\nDo you want to proceed?",
-                    "Confirmation",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question
-                );
-
-                if (result == DialogResult.Yes)
-                {
-                    InvokeScript(selectedItem1, selectedItem2);
-                }
+                MessageBox.Show("PowerShell script not found.");
+                return;
             }
+
+            string scriptContent = File.ReadAllText(psScriptPath);
+
+            // Replace $computers and $scriptfile values using regex
+            scriptContent = Regex.Replace(scriptContent, @"(?m)^\$computers\s*=\s*"".*?""", $"$computers = \"{computersPath}\"");
+            scriptContent = Regex.Replace(scriptContent, @"(?m)^\$scriptfile\s*=\s*"".*?""", $"$scriptfile = \"{scriptFilePath}\"");
+
+            File.WriteAllText(psScriptPath, scriptContent);
+
+            MessageBox.Show("PowerShell script updated successfully.");
+
+            RunPowerShellScript(scriptPath);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // Get the path to the script in the same folder as the executable
-            string scriptPath = Path.Combine(Application.StartupPath, "HelloWorld.ps1");
+            Application.Exit();
 
-            // Create the PowerShell process
-            ProcessStartInfo psi = new ProcessStartInfo()
-            {
-                FileName = "powershell.exe",
-                Arguments = $"-ExecutionPolicy Bypass -File \"{scriptPath}\"",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = false
-            };
-
-            try
-            {
-                // Fix for CS8600: Ensure 'Process.Start' result is checked for null
-                using (Process? process = Process.Start(psi))
-                {
-                    if (process == null)
-                    {
-                        throw new InvalidOperationException("Failed to start the process.");
-                    }
-
-                    // Fix for IDE0063: Simplify 'using' statement
-                    string output = process.StandardOutput.ReadToEnd();
-                    string errors = process.StandardError.ReadToEnd();
-                    process.WaitForExit();
-
-                    MessageBox.Show("Output:\n" + output);
-
-                    if (!string.IsNullOrEmpty(errors))
-                    {
-                        MessageBox.Show("Errors:\n" + errors);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Exception: " + ex.Message);
-            }
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -144,6 +141,11 @@ namespace InvokePowerShellScript
 
             Form2 form2 = new Form2();
             form2.Show();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }

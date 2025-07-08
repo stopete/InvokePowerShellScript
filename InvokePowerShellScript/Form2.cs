@@ -89,14 +89,13 @@ namespace InvokePowerShellScript
                 return;
             }
 
-            switch (selectedItem)
-            {
-                case "s.topete_wa":
-                    MessageBox.Show("You selected s.topete_wa!");
-                    string strUserValue = "s.topete_wa";
-                    string strSecretName = "s.topete_wa";
-                    string strDescription = "s.topete_wa";
-                    string strUser = "ern\\s.topete_wa";
+            
+                    MessageBox.Show("You selected" + selectedItem);
+
+                    string strUserValue = selectedItem;
+                    string strSecretName = selectedItem;
+                    string strDescription = selectedItem;            
+                    string strUser = selectedItem;
 
                     ReplaceVariablesInFile(strUserValue, strSecretName, strDescription, strUser);
 
@@ -104,45 +103,12 @@ namespace InvokePowerShellScript
                     string scriptPath = Path.Combine(Application.StartupPath, "setvault.ps1");
                     RunPowerShellScript(scriptPath);
 
-                    break;
-                case "s.topete_sa":
-                    MessageBox.Show("You selected s.topete_sa!");
-                    string strUserValue1 = "s.topete_sa";
-                    string strSecretName1 = "s.topete_sa";
-                    string strDescription1 = "s.topete_sa";
-                    string strUser1 = "ern\\s.topete_sa";
-                    ReplaceVariablesInFile(strUserValue1, strSecretName1, strDescription1, strUser1);
-
-
-                    string scriptPath1 = Path.Combine(Application.StartupPath, "setvault.ps1");
-                    RunPowerShellScript(scriptPath1);
-
-                    break;
-                case "libsys":
-                    MessageBox.Show("You selected libsys!");
-                    string strUserValue2 = "libsys";
-                    string strSecretName2 = "libsys";
-                    string strDescription2 = "libsys";
-                    string strUser2 = ".\\libsys";
-                    ReplaceVariablesInFile(strUserValue2, strSecretName2, strDescription2, strUser2);
-
-                    string scriptPath2 = Path.Combine(Application.StartupPath, "setvault.ps1");
-                    RunPowerShellScript(scriptPath2);
-                    break;
-                default:
-                    MessageBox.Show("Unknown selection.");
-                    break;
-            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
 
-            // comboBox1.Items.Add("s.topete_wa");
-            // comboBox1.Items.Add("s.topete_sa");
-            // comboBox1.Items.Add("libsys");
-
-
+            //Add items to comboBox1 from users.txt file at startup 
             string filePath = Path.Combine(Application.StartupPath, "users.txt");
 
             if (File.Exists(filePath))
@@ -155,6 +121,13 @@ namespace InvokePowerShellScript
                 MessageBox.Show("users.txt not found in the application directory.");
             }
 
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            this.Close(); // Closes only the SettingsForm
 
         }
     }

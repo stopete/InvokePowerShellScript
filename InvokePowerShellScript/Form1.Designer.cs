@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             groupBox1 = new GroupBox();
+            button4 = new Button();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
             comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
-            button4 = new Button();
             menuStrip1 = new MenuStrip();
             toolStripMenuItem1 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
@@ -45,51 +46,63 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(button4);
             groupBox1.Controls.Add(button3);
             groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(comboBox2);
             groupBox1.Controls.Add(comboBox1);
             groupBox1.Font = new Font("Segoe UI", 9F);
-            groupBox1.Location = new Point(90, 80);
+            groupBox1.Location = new Point(62, 78);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(816, 287);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Perform remote script execution using PowerShell";
             // 
+            // button4
+            // 
+            button4.Image = Properties.Resources.exit_16560516_12;
+            button4.Location = new Point(432, 200);
+            button4.Name = "button4";
+            button4.Size = new Size(91, 41);
+            button4.TabIndex = 5;
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // button3
             // 
-            button3.Location = new Point(504, 187);
+            button3.Image = Properties.Resources.go1;
+            button3.Location = new Point(543, 198);
             button3.Name = "button3";
-            button3.Size = new Size(94, 29);
+            button3.Size = new Size(94, 41);
             button3.TabIndex = 4;
-            button3.Text = "button3";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(666, 140);
+            button2.Image = Properties.Resources.icons8_powershell_48;
+            button2.Location = new Point(666, 126);
             button2.Name = "button2";
-            button2.Size = new Size(94, 29);
+            button2.Size = new Size(94, 52);
             button2.TabIndex = 3;
-            button2.Text = "button2";
             button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            button1.Location = new Point(666, 96);
+            button1.Image = Properties.Resources.txt_file_3;
+            button1.Location = new Point(666, 53);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(94, 58);
             button1.TabIndex = 2;
-            button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(51, 140);
+            comboBox2.Location = new Point(51, 145);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(595, 28);
             comboBox2.TabIndex = 1;
@@ -98,21 +111,11 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(51, 96);
+            comboBox1.Location = new Point(51, 77);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(595, 28);
             comboBox1.TabIndex = 0;
             comboBox1.Text = "Pick a text file with computer names:";
-            // 
-            // button4
-            // 
-            button4.Location = new Point(481, 392);
-            button4.Name = "button4";
-            button4.Size = new Size(94, 29);
-            button4.TabIndex = 5;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
             // 
             // menuStrip1
             // 
@@ -120,7 +123,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1060, 28);
+            menuStrip1.Size = new Size(948, 28);
             menuStrip1.TabIndex = 6;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -134,14 +137,14 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(171, 26);
             exitToolStripMenuItem.Text = "Set up Vault";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem1
             // 
             exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            exitToolStripMenuItem1.Size = new Size(224, 26);
+            exitToolStripMenuItem1.Size = new Size(171, 26);
             exitToolStripMenuItem1.Text = "Exit";
             exitToolStripMenuItem1.Click += exitToolStripMenuItem1_Click;
             // 
@@ -149,10 +152,10 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1060, 442);
-            Controls.Add(button4);
+            ClientSize = new Size(948, 423);
             Controls.Add(groupBox1);
             Controls.Add(menuStrip1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Orchestrate PowerShell-based automation on remote endpoints";
