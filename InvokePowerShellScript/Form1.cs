@@ -146,7 +146,69 @@ namespace InvokePowerShellScript
 
         private void button1_Click(object sender, EventArgs e)
         {
+            using (OpenFileDialog openFileDialog1 = new OpenFileDialog())
+            {
+                openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog1.Title = "Select a text file";
 
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialog1.FileName;
+
+                    // Path to the PowerShell script in the same folder as the EXE
+                    string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InvokeScript.ps1");
+
+                    // Read and update the script
+                    string[] lines = File.ReadAllLines(scriptPath);
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim().StartsWith("$computers ="))
+                        {
+                            lines[i] = $"$computers = \"{selectedFilePath}\"";
+                            break;
+                        }
+                    }
+
+                    // Save the updated script
+                    File.WriteAllLines(scriptPath, lines);
+
+                    MessageBox.Show("PowerShell script updated with selected file path.", "Success");
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            using (OpenFileDialog openFileDialog2 = new OpenFileDialog())
+            {
+                openFileDialog2.Filter = "PowerShell files (*.ps1)|*.ps1|All files (*.*)|*.*";
+                openFileDialog2.Title = "Select a Powershell file";
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialog1.FileName;
+
+                    // Path to the PowerShell script in the same folder as the EXE
+                    string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "InvokeScript.ps1");
+
+                    // Read and update the script
+                    string[] lines = File.ReadAllLines(scriptPath);
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        if (lines[i].Trim().StartsWith("$scriptfile ="))
+                        {
+                            lines[i] = $"$scriptfile = \"{selectedFilePath}\"";
+                            break;
+                        }
+                    }
+
+                    // Save the updated script
+                    File.WriteAllLines(scriptPath, lines);
+
+                    MessageBox.Show("PowerShell script updated with selected file path.", "Success");
+                }
+            }
         }
     }
 }
