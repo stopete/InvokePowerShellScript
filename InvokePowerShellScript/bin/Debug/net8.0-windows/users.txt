@@ -1,3 +1,3 @@
-ern\s.topete_wa
-ern\s.topete_sa
-libsys
+domain\admin1
+domain\admin2
+Administrator
