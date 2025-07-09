@@ -15,10 +15,10 @@
 # Define required modules and vault name
 $requiredModules = @("Microsoft.PowerShell.SecretManagement", "Microsoft.PowerShell.SecretStore")
 
-$user = "ern\s.topete_wa"
-$vaultName = "ern\s.topete_wa"
-$secretName = "ern\s.topete_wa"
-$descriptionName = "ern\s.topete_wa"
+$user = "domain\admin1"
+$vaultName = "domain\admin1"
+$secretName = "domain\admin1"
+$descriptionName = "domain\admin1"
 $description = "Admin user $description"
 
 # Ensure required modules are installed
