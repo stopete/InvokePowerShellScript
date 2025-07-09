@@ -1,9 +1,9 @@
 
 # Enumerate throught the the text file to read computers that you want to invoke 
 # a PowerShell script.
-$computers = "C:\Users\stopete\source\repos\InvokePowerShellScript\InvokePowerShellScript\InvokeCommandFiles\Computers\ActiveComputers.txt"
-$scriptfile = "C:\DoNotDelete\RemoveProfilesNotLoadedNotSpecial.ps1"
-$cred = (Get-Secret -Vault ern\s.topete_wa -Name ern\s.topete_wa)
+$computers = "C:\Computers\ActiveComputers.txt"
+$scriptfile = "C:\Scripts\RemoveProfilesNotLoadedNotSpecial.ps1"
+$cred = (Get-Secret -Vault domain\admin -Name domain\admin)
 
 
 ForEach ($computer in (Get-Content -Path $computers)) {
