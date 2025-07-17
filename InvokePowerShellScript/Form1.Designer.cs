@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             groupBox1 = new GroupBox();
             button4 = new Button();
@@ -45,6 +46,8 @@
             groupBox2 = new GroupBox();
             button5 = new Button();
             checkBox1 = new CheckBox();
+            statusStrip1 = new StatusStrip();
+            timer1 = new System.Windows.Forms.Timer(components);
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -197,11 +200,21 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox1_CheckedChanged;
             // 
+            // statusStrip1
+            // 
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Location = new Point(0, 392);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(1079, 22);
+            statusStrip1.TabIndex = 9;
+            statusStrip1.Text = "statusStrip1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1079, 414);
+            Controls.Add(statusStrip1);
             Controls.Add(checkBox1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -236,5 +249,7 @@
         private GroupBox groupBox2;
         private Button button5;
         private CheckBox checkBox1;
+        private StatusStrip statusStrip1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

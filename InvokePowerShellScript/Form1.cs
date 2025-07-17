@@ -3,11 +3,20 @@
 
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace InvokePowerShellScript
+
+
+
 {
     public partial class Form1 : Form
     {
+        // Fix for CS0229: Ensure only one declaration of 'timer1' exists and use fully qualified name for clarity.
+        // Fix for IDE0017: Use object initializer for timer1.
+
+      
+        
         public Form1()
         {
             InitializeComponent();
@@ -19,6 +28,9 @@ namespace InvokePowerShellScript
 
             LoadFilesIntoComboBox(computersPath);
             LoadPowerShellScripts(scriptsPath);
+
+            InitializeStatusStrip();
+            InitializeTimer();
 
         }
 
@@ -228,5 +240,74 @@ namespace InvokePowerShellScript
             string scriptPath = Path.Combine(Application.StartupPath, "InvokeScript.ps1");
             RunPowerShellScript(scriptPath);
         }
+
+
+
+        private void InitializeStatusStrip()
+        {
+            // Create StatusStrip
+            StatusStrip statusStrip1 = new StatusStrip();
+
+            // Create labels
+            ToolStripStatusLabel dateLabel = new ToolStripStatusLabel();
+            ToolStripStatusLabel timeLabel = new ToolStripStatusLabel();
+            ToolStripStatusLabel copyrightLabel = new ToolStripStatusLabel();
+
+            // Set initial text
+            dateLabel.Name = "dateLabel";
+            dateLabel.Text = DateTime.Now.ToString("MMMM dd, yyyy");
+
+            timeLabel.Name = "timeLabel";
+            timeLabel.Text = DateTime.Now.ToString("hh:mm:ss tt");
+
+            copyrightLabel.Name = "copyrightLabel";
+            copyrightLabel.Text = "Topete © 2025";
+
+            // Add spacing between items
+            ToolStripStatusLabel spacer1 = new ToolStripStatusLabel() { Spring = true };
+            ToolStripStatusLabel spacer2 = new ToolStripStatusLabel() { Spring = true };
+
+            // Add items to StatusStrip
+            statusStrip1.Items.Add(dateLabel);
+            statusStrip1.Items.Add(spacer1);
+            statusStrip1.Items.Add(timeLabel);
+            statusStrip1.Items.Add(spacer2);
+            statusStrip1.Items.Add(copyrightLabel);
+
+            // Add StatusStrip to the form
+            this.Controls.Add(statusStrip1);
+        }
+
+        // ... other code ...
+
+        private void InitializeTimer()
+        {
+            timer1 = new System.Windows.Forms.Timer
+            {
+                Interval = 1000 // 1 second
+            };
+            timer1.Tick += Timer_Tick;
+            timer1.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            // Update date and time labels
+            foreach (Control control in this.Controls)
+            {
+                if (control is StatusStrip statusStrip)
+                {
+                    foreach (ToolStripItem item in statusStrip.Items)
+                    {
+                        if (item.Name == "dateLabel")
+                            item.Text = DateTime.Now.ToString("MMMM dd, yyyy");
+                        else if (item.Name == "timeLabel")
+                            item.Text = DateTime.Now.ToString("hh:mm:ss tt");
+                    }
+                }
+            }
+        }
+
+       
     }
 }

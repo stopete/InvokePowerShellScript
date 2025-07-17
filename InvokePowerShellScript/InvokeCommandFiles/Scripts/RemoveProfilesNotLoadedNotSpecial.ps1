@@ -1,14 +1,16 @@
-$ProfilesToDelete = Get-CimInstance -ClassName win32_userprofile | Where-Object {($_.Loaded -eq $false) -and ($_.Special -eq $false) -and ($_.LocalPath -ne $null)} |
-                    Select-Object -Property LocalPath, Loaded, Special | Out-String -stream
+$ProfilesToDelete = Get-CimInstance -ClassName win32_userprofile | Where-Object {
+    ($_.Loaded -eq $false) -and ($_.Special -eq $false) -and ($_.LocalPath -ne $null)
+}
 
-write-host "Profiles to delete:"
+if ($ProfilesToDelete.Count -eq 0) {
+    Write-Host "No user profiles found to delete."
+} else {
+    Write-Host "Profiles to delete:`n"
+    $ProfilesToDelete | Select-Object -Property LocalPath, Loaded, Special | Format-Table -AutoSize
 
-Write-host ""
+    # Proceed with deletion
+    $ProfilesToDelete | Remove-CimInstance -ErrorAction SilentlyContinue
 
- $ProfilesToDelete
-
- write-host ""
-
-Get-CimInstance -ClassName win32_userprofile | Where-Object {($_.Loaded -eq $false) -and ($_.Special -eq $false)-and ($_.LocalPath -ne $null)} | Remove-CimInstance -ErrorAction SilentlyContinue
-
-Write-host "Completed deleting users profiles!!!"
+    Write-Host "`nCompleted deleting user profiles!"
+}
+Write-Host ""
